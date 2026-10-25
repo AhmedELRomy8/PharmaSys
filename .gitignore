@@ -1,0 +1,31 @@
+# ---- course source materials (not part of the project) ----
+what asked for us/
+*.rar
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+*.db
+*.sqlite3
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# ---- build outputs ----
+dist/
+build/
+
+# ---- Node ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+
+# ---- IDE / OS ----
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
