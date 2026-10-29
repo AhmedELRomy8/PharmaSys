@@ -4,7 +4,7 @@
 
 PharmaSys gives hospital pharmacies a barcode-driven point of sale, live inventory with expiry tracking, invoicing and barcode label printing, staff shift management, and sales reports — delivered as a web app (SaaS, multi-tenant) and as an installable Windows desktop application.
 
-> Software Engineering Final Project · Faculty of Computers and Information, Damanhour University · 2026
+> Software Engineering Final Project · Faculty of Computers and Information, Damanhour University · 2025
 
 ## Vision
 
