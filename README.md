@@ -4,7 +4,7 @@
 
 PharmaSys gives hospital pharmacies a barcode-driven point of sale, live inventory with expiry tracking, invoicing and barcode label printing, staff shift management, and sales reports — delivered as a web app (SaaS, multi-tenant) and as an installable Windows desktop application.
 
-> Software Engineering Final Project · Faculty of Computers and Information, Damanhour University · 2027
+> Software Engineering Final Project · Faculty of Computers and Information, Damanhour University · 2026
 
 ## Vision
 
@@ -72,3 +72,11 @@ Every change reaches `main` through a reviewed pull request (GitHub Flow):
 ## Status
 
 Sprint 0 — repository bootstrap. The roadmap and per-member ownership live in [`docs/team/TEAM-PLAN.md`](docs/team/TEAM-PLAN.md).
+
+## Merge Conflict Resolution
+
+A merge conflict occurred when two branches modified
+the same line in README.md.
+
+The conflict was resolved by accepting the correct
+incoming change (2027).
