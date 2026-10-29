@@ -4,5 +4,5 @@ Three members, one product, ten labs. The working agreement — ground rules, st
 
 Each member adds their own row to the table below through their **first pull request**. The three PRs all touch this file on purpose: that is our Lab 1 merge-conflict drill, and each PR description documents how the conflict was resolved.
 
-| Member | GitHub | Lab roles | Owns |
-| --- | --- | --- | --- |
+| Name | Role | Responsibility |
+| Ahmed Tamer Elromy | Team Lead | Coordinate the team |
