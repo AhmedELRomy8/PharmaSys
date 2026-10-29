@@ -72,3 +72,11 @@ Every change reaches `main` through a reviewed pull request (GitHub Flow):
 ## Status
 
 Sprint 0 — repository bootstrap. The roadmap and per-member ownership live in [`docs/team/TEAM-PLAN.md`](docs/team/TEAM-PLAN.md).
+
+## Merge Conflict Resolution
+
+A merge conflict occurred when two branches modified
+the same line in README.md.
+
+The conflict was resolved by accepting the correct
+incoming change (2027).
