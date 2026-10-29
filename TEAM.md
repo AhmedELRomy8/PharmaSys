@@ -6,3 +6,4 @@ Each member adds their own row to the table below through their **first pull req
 ## Team members
 | Name | Role | Responsibility |
 | Ahmed Tamer Elromy | Team Lead | Coordinate the team |
+| Ali Mahmoud Ali | Git Master | Manage Git workflow |
