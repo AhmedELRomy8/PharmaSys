@@ -1,0 +1,165 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam roundcorner 8
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+skinparam class {
+  BackgroundColor #F8FAFC
+  BorderColor #334155
+  ArrowColor #475569
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  STAFF
+}
+
+enum DosageForm {
+  TABLET
+  CAPSULE
+  SYRUP
+  SUSPENSION
+  DROPS
+  OINTMENT
+  CREAM
+  INJECTION
+  INHALER
+}
+
+enum PackageUnit {
+  BOX
+  STRIP
+  BOTTLE
+  TUBE
+  VIAL
+  SACHET
+}
+
+enum SaleStatus {
+  DRAFT
+  PAID
+  REFUNDED
+  CANCELLED
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+}
+
+class Pharmacy {
+  - id: int
+  - name: String
+  - branchCode: String
+  - phone: String
+  - address: String
+  + getActiveStaff(): List<User>
+  + getExpiringStock(days: int): List<Medicine>
+}
+
+class User {
+  - id: int
+  - fullName: String
+  - email: String
+  - passwordHash: String
+  - role: UserRole
+  - isActive: bool
+  + verifyPassword(plain: String): bool
+  + hasPermission(perm: String): bool
+}
+
+class Medicine {
+  - id: int
+  - tradeName: String
+  - genericName: String
+  - dosageForm: DosageForm
+  - packageUnit: PackageUnit
+  - barcode: String
+  - sellingPrice: float
+  - costPrice: float
+  - stockQuantity: int
+  - minStockThreshold: int
+  - expiryDate: Date
+  - isActive: bool
+  + isExpired(today: Date): bool
+  + isLowStock(): bool
+  + decrementStock(qty: int): bool
+  + restoreStock(qty: int): void
+}
+
+class Customer {
+  - id: int
+  - fullName: String
+  - phone: String
+  - notes: String
+  + getPurchaseHistory(): List<Sale>
+}
+
+class Sale {
+  - id: int
+  - invoiceNumber: String
+  - saleDate: DateTime
+  - subtotal: float
+  - discountAmount: float
+  - netTotal: float
+  - status: SaleStatus
+  + calculateTotals(): void
+  + applyDiscount(percent: float): void
+  + finalizeSale(): void
+  + refundSale(): void
+}
+
+class SaleItem {
+  - id: int
+  - quantity: int
+  - unitPrice: float
+  - lineTotal: float
+  + computeLineTotal(): float
+}
+
+class Shift {
+  - id: int
+  - startTime: DateTime
+  - endTime: DateTime
+  - startingCash: float
+  - endingCash: float
+  - actualCashCounted: float
+  - cashDifference: float
+  + closeShift(physicalCash: float): void
+  + calculateExpectedCash(): float
+}
+
+class Payment {
+  - id: int
+  - amount: float
+  - paymentMethod: PaymentMethod
+  - transactionReference: String
+  - paidAt: DateTime
+  + validatePayment(): bool
+}
+
+' Relationships with clear Multiplicities
+Pharmacy "1" *-- "1..*" User : employs >
+Pharmacy "1" *-- "0..*" Medicine : inventory >
+Pharmacy "1" *-- "0..*" Sale : registers >
+
+User "1" -- "0..*" Shift : operates >
+User "1" -- "0..*" Sale : cashier >
+
+Shift "1" -- "0..*" Sale : records during >
+
+Customer "0..1" -- "0..*" Sale : billed to >
+
+Sale "1" *-- "1..*" SaleItem : composed of >
+Medicine "1" -- "0..*" SaleItem : sold as >
+
+Sale "1" -- "1" Payment : settled by >
+
+Medicine ..> DosageForm : <<uses>>
+Medicine ..> PackageUnit : <<uses>>
+User ..> UserRole : <<uses>>
+Sale ..> SaleStatus : <<uses>>
+Payment ..> PaymentMethod : <<uses>>
+
+@enduml

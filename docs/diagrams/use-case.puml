@@ -1,0 +1,65 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam roundcorner 10
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam sequenceArrowThickness 1.5
+
+skinparam actor {
+  BackgroundColor #E8F4F8
+  BorderColor #2B6CB0
+}
+
+skinparam usecase {
+  BackgroundColor #F7FAFC
+  BorderColor #2D3748
+  ArrowColor #4A5568
+}
+
+actor "Staff / Cashier" as Staff
+actor "Pharmacy Admin" as Admin
+actor "Super Admin" as SuperAdmin
+
+Admin -|> Staff
+
+rectangle "PharmaSys — Damanhour University Hospital Pharmacy" {
+  usecase "UC-01: Authenticate & Log In" as UC01
+  usecase "UC-02: Search & Inspect Medicines" as UC02
+  usecase "UC-03: Process Sale at POS" as UC03
+  usecase "UC-04: Validate Stock & Expiry" as UC04
+  usecase "UC-05: Deduct Stock Atomically" as UC05
+  usecase "UC-06: Apply Manager Discount" as UC06
+  usecase "UC-07: Alert Drug-to-Drug Interaction" as UC07
+  usecase "UC-08: Print Invoices & Labels" as UC08
+  usecase "UC-09: Manage Staff Shift & Drawer" as UC09
+  usecase "UC-10: Manage Medicine Catalog" as UC10
+  usecase "UC-11: Monitor Inventory & Expiry Alerts" as UC11
+  usecase "UC-12: Generate Sales & Financial Reports" as UC12
+  usecase "UC-13: Manage Staff Accounts & RBAC" as UC13
+  usecase "UC-14: Manage Hospital Pharmacy Tenants" as UC14
+}
+
+' Staff interactions
+Staff --> UC01
+Staff --> UC02
+Staff --> UC03
+Staff --> UC08
+Staff --> UC09
+
+' Admin interactions
+Admin --> UC10
+Admin --> UC11
+Admin --> UC12
+Admin --> UC13
+
+' Super Admin interactions
+SuperAdmin --> UC14
+
+' Include & Extend relationships
+UC03 ..> UC04 : <<include>>
+UC03 ..> UC05 : <<include>>
+UC06 ..> UC03 : <<extend>>
+UC07 ..> UC03 : <<extend>>
+
+@enduml

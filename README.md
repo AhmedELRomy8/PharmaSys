@@ -130,7 +130,12 @@ Every change reaches `main` through a reviewed pull request (GitHub Flow):
 
 ## Status
 
-Sprint 0 & 1 — Repository bootstrap (Lab 01) and Requirements Engineering (Lab 02) complete.
+Sprint 0, 1 & 2 — Repository bootstrap (Lab 01), Requirements Engineering (Lab 02), and UML Modelling I (Lab 03) complete.
 - 📄 **Lab 01 Report & Evidence:** [docs/lab01/Lab01_Report.md](docs/lab01/Lab01_Report.md)
-- 📋 **Lab 02 Requirements Specification:** [docs/requirements.md](docs/requirements.md) (27 user stories with INVEST criteria, Gherkin acceptance criteria, 7 measurable NFRs, and MVP scope)
+- 📋 **Lab 02 Requirements Specification:** [docs/requirements.md](docs/requirements.md) (27 user stories, INVEST breakdown, Gherkin criteria, and measurable NFRs)
+- 📐 **Lab 03 Use Case Diagram:** [docs/diagrams/use-case.png](docs/diagrams/use-case.png) ([.puml source](docs/diagrams/use-case.puml))
+- 🏛️ **Lab 03 Domain Class Diagram:** [docs/diagrams/domain-classes.png](docs/diagrams/domain-classes.png) ([.puml source](docs/diagrams/domain-classes.puml))
+- 📝 **Lab 03 Fully-Dressed Use Case:** [docs/use-cases.md](docs/use-cases.md)
+- 🔗 **Lab 03 Traceability Matrix:** [docs/traceability.md](docs/traceability.md)
 - 🗺️ **Roadmap & Team Ownership:** [docs/team/TEAM-PLAN.md](docs/team/TEAM-PLAN.md)
+
