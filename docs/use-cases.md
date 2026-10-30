@@ -13,9 +13,9 @@
 The use case model captures the interactions between hospital actors and **PharmaSys**. The system prioritizes the **POS Counter Checkout** as the default operational workflow.
 
 ### Visual Model
-The complete Use Case Diagram is maintained as code in [`docs/diagrams/use-case.puml`](diagrams/use-case.puml) and exported as [`docs/diagrams/use-case.png`](diagrams/use-case.png).
+The complete Use Case Diagram is maintained as code in [`docs/diagrams/source/use-case.puml`](diagrams/source/use-case.puml) and exported as [`docs/diagrams/exports/use-case.png`](diagrams/exports/use-case.png).
 
-![PharmaSys Use Case Diagram](diagrams/use-case.png)
+![PharmaSys Use Case Diagram](diagrams/exports/use-case.png)
 
 ---
 
