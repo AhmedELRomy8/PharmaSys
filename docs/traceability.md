@@ -9,7 +9,7 @@
 ---
 
 ## 1. Overview & Purpose
-This traceability matrix establishes a bidirectional mapping between the **Product Backlog User Stories** defined in [`docs/requirements.md`](requirements.md), the **Use Case Model** in [`docs/diagrams/use-case.puml`](diagrams/use-case.puml), and the **Domain Classes** in [`docs/diagrams/domain-classes.puml`](diagrams/domain-classes.puml).
+This traceability matrix establishes a bidirectional mapping between the **Product Backlog User Stories** defined in [`docs/requirements.md`](requirements.md), the **Use Case Model** in [`docs/diagrams/source/use-case.puml`](diagrams/source/use-case.puml), and the **Domain Classes** in [`docs/diagrams/source/domain-classes.puml`](diagrams/source/domain-classes.puml).
 
 It guarantees that every functional requirement has architectural representation and verifiable test coverage.
 
@@ -48,6 +48,6 @@ It guarantees that every functional requirement has architectural representation
 ---
 
 ## 3. Visual Domain Class Model
-The Domain Class Diagram is versioned as code in [`docs/diagrams/domain-classes.puml`](diagrams/domain-classes.puml) and exported as [`docs/diagrams/domain-classes.png`](diagrams/domain-classes.png).
+The Domain Class Diagram is versioned as code in [`docs/diagrams/source/domain-classes.puml`](diagrams/source/domain-classes.puml) and exported as [`docs/diagrams/exports/domain-classes.png`](diagrams/exports/domain-classes.png).
 
-![PharmaSys Domain Class Diagram](diagrams/domain-classes.png)
+![PharmaSys Domain Class Diagram](diagrams/exports/domain-classes.png)
