@@ -130,4 +130,7 @@ Every change reaches `main` through a reviewed pull request (GitHub Flow):
 
 ## Status
 
-Sprint 0 — repository bootstrap & Lab 01 submission complete. The roadmap and per-member ownership live in [`docs/team/TEAM-PLAN.md`](docs/team/TEAM-PLAN.md).
+Sprint 0 & 1 — Repository bootstrap (Lab 01) and Requirements Engineering (Lab 02) complete.
+- 📄 **Lab 01 Report & Evidence:** [docs/lab01/Lab01_Report.md](docs/lab01/Lab01_Report.md)
+- 📋 **Lab 02 Requirements Specification:** [docs/requirements.md](docs/requirements.md) (27 user stories with INVEST criteria, Gherkin acceptance criteria, 7 measurable NFRs, and MVP scope)
+- 🗺️ **Roadmap & Team Ownership:** [docs/team/TEAM-PLAN.md](docs/team/TEAM-PLAN.md)
