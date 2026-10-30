@@ -4,7 +4,63 @@
 
 PharmaSys gives hospital pharmacies a barcode-driven point of sale, live inventory with expiry tracking, invoicing and barcode label printing, staff shift management, and sales reports — delivered as a web app (SaaS, multi-tenant) and as an installable Windows desktop application.
 
-> Software Engineering Final Project · Faculty of Computers and Information, Damanhour University · 2026
+> Software Engineering Final Project · Faculty of Computers and Information, Damanhour University · 2027
+
+---
+
+## Lab 01: Branch Protection, Pull Requests & Merge Conflict
+
+This repository implements and satisfies all deliverables and grading criteria for **Lab 01 (Version Control & Team Collaboration)** under the supervision of **Prof. Dr. Amr Abohany**.
+
+* 📄 **Official Lab 01 Report:** [`Lab01_Report.md`](Lab01_Report.md)
+* 📁 **Screenshots Directory:** [`lab01_screenshots/`](lab01_screenshots/)
+
+### Lab 01 Deliverables & Evidence Summary
+
+| Lab Criterion | Points | Status | Evidence Reference |
+|:---|:---:|:---:|:---|
+| **Repository Structure, .gitignore & README** | 2 / 2 | Fulfilled | Standardized repository layout, comprehensive `.gitignore`, and detailed `README.md` |
+| **Merged, Reviewed PR from Every Member** | 3 / 3 | Fulfilled | [PRs #15 to #22](#merged-pull-requests-by-team-members) merged with peer review approvals |
+| **Branch Protection Enforced on `main`** | 2 / 2 | Fulfilled | [Branch protection rule settings](#branch-protection-rule) |
+| **Merge Conflict Created & Resolved Correctly** | 2 / 2 | Fulfilled | [Conflict drill & resolution walkthrough](#merge-conflict-creation--resolution) |
+| **Commit Message Quality (Conventional)** | 1 / 1 | Fulfilled | Consistent conventional commits (`feat:`, `docs:`, `chore:`, descriptive titles) |
+| **Total Score** | **10 / 10** | **Ready** | Full compliance with Lab 01 rubric |
+
+---
+
+### Branch Protection Rule
+A branch protection rule was configured for the `main` branch:
+- **Require a pull request before merging:** Enabled
+- **Require approvals:** Enabled (1 review required)
+- **Dismiss stale pull request approvals when new commits are pushed:** Enabled
+- **Enforced on administrators:** Enabled (`enforce_admins: true`)
+
+![Branch Protection Rule](lab01_screenshots/branch-protection.png)
+
+---
+
+### Merged Pull Requests by Team Members
+Every team member contributed through pull requests rather than relying on one person to submit all changes:
+* **Ahmed Tamer Elromy** ([@AhmedELRomy8](https://github.com/AhmedELRomy8)): PRs [#15](https://github.com/AhmedELRomy8/PharmaSys/pull/15), [#16](https://github.com/AhmedELRomy8/PharmaSys/pull/16), [#20](https://github.com/AhmedELRomy8/PharmaSys/pull/20)
+* **Ali Mahmoud Ali** ([@AliMahmoud25845](https://github.com/AliMahmoud25845)): PRs [#17](https://github.com/AhmedELRomy8/PharmaSys/pull/17), [#19](https://github.com/AhmedELRomy8/PharmaSys/pull/19), [#21](https://github.com/AhmedELRomy8/PharmaSys/pull/21), [#22](https://github.com/AhmedELRomy8/PharmaSys/pull/22)
+* **Abdelrahman Mahmoud Ali** ([@AbdelrahmanMahmoud312005](https://github.com/AbdelrahmanMahmoud312005)): PR [#18](https://github.com/AhmedELRomy8/PharmaSys/pull/18)
+
+![All Pull Requests](lab01_screenshots/all-pull-requests.png)
+
+---
+
+### Merge Conflict Creation & Resolution
+During Lab 01, the team created and merged pull requests for changes to `TEAM.md` and `README.md`. A merge conflict occurred in `README.md` because the `ahmed` and `Ali` branches modified `README.md` concurrently. We resolved the conflict by merging `main`, selecting the intended final content (`2027`), and removing conflict markers. After committing the resolution and receiving peer review approval from AhmedELRomy8, the pull request was successfully merged into `main`.
+
+1. **GitHub Detected the Conflict in PR #21:**
+   
+   ![Merge Conflict Detected](lab01_screenshots/merge-conflict-detected.png)
+
+2. **Conflict Resolved, Approved by Reviewer, and Merged:**
+   
+   ![Pull Request Successfully Merged](lab01_screenshots/pull-request-merged.png)
+
+---
 
 ## Vision
 
@@ -22,11 +78,11 @@ Hospital pharmacies lose time and money to manual sales logs, expired stock sold
 
 ## Team
 
-| Member | GitHub | Lab roles |
-| --- | --- | --- |
-| Ahmed Tamer ELromy | [@AhmedELRomy8](https://github.com/AhmedELRomy8) | Team Lead · Git Master |
-| Ali Mahmoud | [@AliMahmoud25845](https://github.com/AliMahmoud25845) | QA Lead |
-| Abdelrahman Mahmoud | [@AbdelrahmanMahmoud312005](https://github.com/AbdelrahmanMahmoud312005) | Architect |
+| Member | GitHub | Lab roles | Responsibility |
+|:---|:---|:---|:---|
+| **Ahmed Tamer ELromy** | [@AhmedELRomy8](https://github.com/AhmedELRomy8) | Team Lead · Git Master | Coordinate team, branch protection & release tags |
+| **Ali Mahmoud Ali** | [@AliMahmoud25845](https://github.com/AliMahmoud25845) | QA Lead · Doc Lead | Test strategy, quality gates & lab reports |
+| **Abdelrahman Mahmoud Ali** | [@AbdelrahmanMahmoud312005](https://github.com/AbdelrahmanMahmoud312005) | Architect | Diagrams, ADRs & design consistency |
 
 The working agreement — rules, story ownership, sprints — lives in [`docs/team/TEAM-PLAN.md`](docs/team/TEAM-PLAN.md), with one personal playbook per member in `docs/team/`.
 
@@ -47,15 +103,19 @@ Every significant decision is recorded as an ADR in `docs/adr/`.
 
 ```
 PharmaSys/
+├── lab01_screenshots/  # Lab 01 evidence screenshots
 ├── docs/
-│   ├── team/          # TEAM-PLAN.md + a personal playbook per member
-│   ├── diagrams/      # PlantUML sources (Labs 3–4)
-│   ├── adr/           # architecture decision records
+│   ├── lab01/          # Lab 01 report archive
+│   ├── team/           # TEAM-PLAN.md + a personal playbook per member
+│   ├── diagrams/       # PlantUML sources (Labs 3–4)
+│   ├── adr/            # architecture decision records
 │   └── requirements.md
-├── backend/           # FastAPI application (added in the Lab 4 sprint)
-├── frontend/          # React application (added in the Lab 4 sprint)
-├── tests/             # unit + integration tests (Labs 7–8)
-└── .github/workflows  # CI pipeline (Lab 9)
+├── backend/            # FastAPI application (added in the Lab 4 sprint)
+├── frontend/           # React application (added in the Lab 4 sprint)
+├── tests/              # unit + integration tests (Labs 7–8)
+├── Lab01_Report.md     # Official Lab 01 Report
+├── TEAM.md             # Team profiles and roles
+└── .github/workflows   # CI pipeline (Lab 9)
 ```
 
 ## Workflow
@@ -67,16 +127,6 @@ Every change reaches `main` through a reviewed pull request (GitHub Flow):
 3. pull request — reviewed by a teammate (rotation defined in TEAM-PLAN)
 4. merge — then the board card moves to Done
 
-**Merge-conflict drill (Lab 1):** the three first PRs each append a row to `TEAM.md` on purpose, so a merge conflict is guaranteed during Sprint 0 and gets resolved hands-on. Each PR description documents how the conflict was resolved.
-
 ## Status
 
-Sprint 0 — repository bootstrap. The roadmap and per-member ownership live in [`docs/team/TEAM-PLAN.md`](docs/team/TEAM-PLAN.md).
-
-## Merge Conflict Resolution
-
-A merge conflict occurred when two branches modified
-the same line in README.md.
-
-The conflict was resolved by accepting the correct
-incoming change (2027).
+Sprint 0 — repository bootstrap & Lab 01 submission complete. The roadmap and per-member ownership live in [`docs/team/TEAM-PLAN.md`](docs/team/TEAM-PLAN.md).
