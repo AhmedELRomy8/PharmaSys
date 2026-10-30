@@ -1,0 +1,89 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam roundcorner 8
+skinparam BoxPadding 10
+skinparam ParticipantPadding 10
+
+skinparam sequence {
+    ArrowColor #2C3E50
+    ActorBorderColor #2C3E50
+    LifeLineBorderColor #7F8C8D
+    LifeLineBackgroundColor #ECF0F1
+    ParticipantBorderColor #34495E
+    ParticipantBackgroundColor #EBF5FB
+    ParticipantFontName Arial
+    ParticipantFontSize 12
+}
+
+autonumber "<b>[00]</b>"
+
+title Sequence Diagram: User Authentication & Role-Based Authorization (UC-01 / US-01, US-02)
+
+actor "Staff / Pharmacist / Admin" as User #E8F8F5
+boundary "Web / Desktop Client" as Client #EBF5FB
+control "AuthRouter\n(FastAPI API Layer)" as AuthRouter #FCF3CF
+control "AuthService\n(Business Logic)" as AuthService #FCF3CF
+control "PasswordHasher\n(Argon2 / Bcrypt)" as Hasher #FCF3CF
+entity "UserRepo\n(Data Access Layer)" as UserRepo #D5F5E3
+control "TokenProvider\n(JWT Service)" as TokenService #FCF3CF
+
+== User Login Flow ==
+
+User -> Client : enterCredentials(email: "staff@pharmasys.local", password: "***")
+activate Client
+
+Client -> AuthRouter : POST /api/v1/auth/login\n{email, password}
+activate AuthRouter
+
+AuthRouter -> AuthService : authenticate(email, plainPassword)
+activate AuthService
+
+AuthService -> UserRepo : findByEmail(email)
+activate UserRepo
+UserRepo --> AuthService : userEntity (or null)
+deactivate UserRepo
+
+alt#LightPink #LightPink User Not Found OR Password Invalid [Failure Path 1]
+    AuthService -> Hasher : verify(plainPassword, passwordHash)
+    activate Hasher
+    Hasher --> AuthService : isValid: false
+    deactivate Hasher
+
+    AuthService --> AuthRouter : raise InvalidCredentialsException("Invalid email or password")
+    AuthRouter --> Client : 401 Unauthorized\n{"error": "INVALID_CREDENTIALS"}
+    Client --> User : Display "Invalid email or password" error banner
+else #LightCyan Credentials Matched [Password Valid]
+    AuthService -> Hasher : verify(plainPassword, userEntity.passwordHash)
+    activate Hasher
+    Hasher --> AuthService : isValid: true
+    deactivate Hasher
+
+    alt#LightPink #LightPink Account Deactivated [Failure Path 2]
+        AuthService --> AuthRouter : raise AccountInactiveException("Account is disabled by Admin")
+        AuthRouter --> Client : 403 Forbidden\n{"error": "ACCOUNT_DISABLED"}
+        Client --> User : Display "Account deactivated. Contact Hospital Admin"
+    else #LightCyan Account Active [Success Path]
+        AuthService -> TokenService : generateTokens(userId, role, permissions)
+        activate TokenService
+        TokenService --> AuthService : {accessToken: "jwt.token...", refreshToken: "..."}
+        deactivate TokenService
+
+        AuthService --> AuthRouter : AuthSuccessDTO(userProfile, accessToken, role)
+        AuthRouter --> Client : 200 OK\n{"accessToken": "...", "user": {"role": "STAFF", "name": "Dr. Sarah"}}
+        
+        alt User Role == STAFF
+            Client --> User : Redirect to POS Counter Screen (Default)
+        else User Role == ADMIN
+            Client --> User : Redirect to Hospital Admin Dashboard
+        end
+    end
+end
+
+deactivate AuthService
+deactivate AuthRouter
+deactivate Client
+
+@enduml

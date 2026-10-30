@@ -1,0 +1,60 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam roundcorner 8
+
+skinparam state {
+    StartColor #2C3E50
+    EndColor #2C3E50
+    BackgroundColor #EBF5FB
+    BorderColor #2C3E50
+    FontName Arial
+    FontSize 12
+    AttributeFontColor #34495E
+}
+
+title State Diagram: Lifecycle of a Sale Entity (Sale Lifecycle)
+
+[*] --> DRAFT : createSale() /\nCashier opens POS or scans 1st item
+
+state DRAFT {
+    DRAFT : entry / initializeCart(cashierId, shiftId)
+    DRAFT : do / calculateSubtotal(), checkDrugInteractions()
+    DRAFT : exit / validateItemsNotEmpty()
+}
+
+DRAFT --> DRAFT : addItem(barcode, qty)\n[inStock && !expired]
+DRAFT --> DRAFT : removeItem(itemId)
+DRAFT --> DRAFT : applyDiscount(percent)\n[managerApproved]
+
+DRAFT --> CANCELLED : cancelSale() /\nCashier clears or aborts cart
+DRAFT --> PROCESSING : proceedToCheckout()\n[itemsCount > 0]
+
+state PROCESSING {
+    PROCESSING : entry / lockItemsInStock()
+    PROCESSING : do / awaitPaymentConfirmation()
+}
+
+PROCESSING --> DRAFT : paymentFailed() /\nunlockStock(), notifyCashier()
+PROCESSING --> CANCELLED : abortPayment() /\nunlockStock()
+
+PROCESSING --> PAID : paymentSuccess(CASH | CARD) /\ndecrementStockAtomically(), generateInvoiceNumber()
+
+state PAID {
+    PAID : entry / printReceipt(thermal80mm), recordInShiftDrawer()
+    PAID : do / lockRecordFromDirectEdits()
+}
+
+PAID --> REFUNDED : returnItems(adminAuth, reason) /\nrestoreStock(), issueRefundReceipt()
+
+state REFUNDED {
+    REFUNDED : entry / adjustShiftCash(negative), auditLog()
+}
+
+PAID --> [*] : closeShift() /\narchived in periodic reports
+REFUNDED --> [*] : auditCompleted()
+CANCELLED --> [*] : cartDiscarded()
+
+@enduml

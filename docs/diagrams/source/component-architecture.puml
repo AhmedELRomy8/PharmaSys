@@ -1,0 +1,125 @@
+@startuml
+skinparam componentStyle uml2
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam roundcorner 8
+
+skinparam package {
+    BackgroundColor #F8F9F9
+    BorderColor #2C3E50
+    FontColor #2C3E50
+    FontSize 13
+}
+
+skinparam component {
+    BackgroundColor #EBF5FB
+    BorderColor #2980B9
+    FontColor #1B4F72
+    FontSize 11
+}
+
+skinparam interface {
+    BackgroundColor #FCF3CF
+    BorderColor #D68910
+}
+
+title Architecture Diagram: 4-Tier Layered Architecture for PharmaSys
+
+package "Client & Devices Tier" {
+    [React SPA Web App\n(Vite + TypeScript + Tailwind)] as WebUI
+    [Desktop Wrapper\n(Electron / Windows Shell)] as DesktopUI
+    [Barcode Scanner\n(USB HID / Keyboard emulation)] as ScannerHW
+    [Thermal Receipt Printer\n(ESC/POS 80mm)] as PrinterHW
+}
+
+package "Presentation Layer (FastAPI Routers)" #EBF5FB {
+    [AuthRouter] as AuthCtrl
+    [SalesRouter\n(Default Screen Endpoint)] as SalesCtrl
+    [MedicineRouter] as MedCtrl
+    [ReportsRouter] as ReportCtrl
+    [ShiftRouter] as ShiftCtrl
+}
+
+package "Service Layer (Business Logic)" #FCF3CF {
+    interface "IAuthService" as IAuthSvc
+    interface "ISaleService" as ISaleSvc
+    interface "IInventoryService" as IInvSvc
+    interface "IReportingService" as IRepSvc
+    
+    [AuthService] as AuthSvc
+    [SaleService] as SaleSvc
+    [InventoryService] as InvSvc
+    [ReportingService] as RepSvc
+    
+    IAuthSvc <|.. AuthSvc
+    ISaleSvc <|.. SaleSvc
+    IInvSvc <|.. InvSvc
+    IRepSvc <|.. RepSvc
+}
+
+package "Repository Layer (Data Access & Abstractions)" #D5F5E3 {
+    interface "IUserRepository" as IUserRepo
+    interface "ISaleRepository" as ISaleRepo
+    interface "IMedicineRepository" as IMedRepo
+    interface "IShiftRepository" as IShiftRepo
+    
+    [UserRepository] as UserRepo
+    [SaleRepository] as SaleRepo
+    [MedicineRepository] as MedRepo
+    [ShiftRepository] as ShiftRepo
+    
+    IUserRepo <|.. UserRepo
+    ISaleRepo <|.. SaleRepo
+    IMedRepo <|.. MedRepo
+    IShiftRepo <|.. ShiftRepo
+}
+
+package "Persistence & Infrastructure Layer" #FADBD8 {
+    [SQLAlchemy ORM 2.0 Engine] as ORMEngine
+    database "SQLite / PostgreSQL\n(Hospital Pharmacy DB)" as Database
+    [Hardware Integration Service\n(WebHID / Serial COM)] as HWService
+}
+
+' Downward dependency flows
+WebUI --> AuthCtrl : HTTP / JSON
+WebUI --> SalesCtrl : HTTP / JSON
+WebUI --> MedCtrl : HTTP / JSON
+WebUI --> ReportCtrl : HTTP / JSON
+WebUI --> ShiftCtrl : HTTP / JSON
+DesktopUI ..> WebUI : embeds
+
+ScannerHW --> WebUI : Keyboard buffer / HID
+PrinterHW <-- HWService : ESC/POS commands
+
+AuthCtrl --> IAuthSvc
+SalesCtrl --> ISaleSvc
+MedCtrl --> IInvSvc
+ReportCtrl --> IRepSvc
+ShiftCtrl --> ISaleSvc
+
+AuthSvc --> IUserRepo
+SaleSvc --> ISaleRepo
+SaleSvc --> IMedRepo
+SaleSvc --> IShiftRepo
+SaleSvc --> HWService : trigger print
+InvSvc --> IMedRepo
+RepSvc --> ISaleRepo
+RepSvc --> IMedRepo
+
+UserRepo --> ORMEngine
+SaleRepo --> ORMEngine
+MedRepo --> ORMEngine
+ShiftRepo --> ORMEngine
+
+ORMEngine --> Database : SQL queries & transactions
+
+note right of "Service Layer (Business Logic)"
+  **Layering Rule Enforced:**
+  Dependencies point strictly downwards.
+  Routers never access Repositories or DB directly.
+  Services are unit-testable using Mock Repositories.
+end note
+
+@enduml

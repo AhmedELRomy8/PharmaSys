@@ -109,11 +109,21 @@ PharmaSys/
 │   │   ├── Lab01_Report.md
 │   │   └── lab01_screenshots/
 │   ├── team/                  # TEAM-PLAN.md + a personal playbook per member
-│   ├── diagrams/              # PlantUML sources (Labs 3–4)
-│   ├── adr/                   # architecture decision records
-│   └── requirements.md
-├── backend/                   # FastAPI application (added in the Lab 4 sprint)
-├── frontend/                  # React application (added in the Lab 4 sprint)
+│   ├── diagrams/              # PlantUML sources & high-resolution PNG exports
+│   │   ├── source/            # Version-controlled .puml diagram sources
+│   │   └── exports/           # Compiled production PNG diagrams
+│   ├── adr/                   # Architecture Decision Records (ADR-001, ADR-002)
+│   ├── requirements.md        # 27 user stories with Gherkin acceptance criteria
+│   ├── use-cases.md           # Fully-dressed use case specifications
+│   └── traceability.md        # Bidirectional requirements-to-design matrix
+├── src/                       # 4-tier layered architecture backend skeleton
+│   ├── routers/               # Presentation layer (FastAPI route handlers)
+│   ├── services/              # Business logic & domain transaction orchestration
+│   ├── repositories/          # Data access interfaces & SQLAlchemy implementations
+│   ├── models/                # Domain entities & database tables
+│   ├── schemas/               # Pydantic DTOs & request/response validation
+│   ├── core/                  # Configuration, database engine & custom exceptions
+│   └── main.py                # Application entrypoint & dependency lifespan
 ├── tests/                     # unit + integration tests (Labs 7–8)
 ├── TEAM.md                    # Team profiles and roles
 └── .github/workflows          # CI pipeline (Lab 9)
@@ -130,12 +140,28 @@ Every change reaches `main` through a reviewed pull request (GitHub Flow):
 
 ## Status
 
-Sprint 0, 1 & 2 — Repository bootstrap (Lab 01), Requirements Engineering (Lab 02), and UML Modelling I (Lab 03) complete.
-- 📄 **Lab 01 Report & Evidence:** [docs/lab01/Lab01_Report.md](docs/lab01/Lab01_Report.md)
-- 📋 **Lab 02 Requirements Specification:** [docs/requirements.md](docs/requirements.md) (27 user stories, INVEST breakdown, Gherkin criteria, and measurable NFRs)
-- 📐 **Lab 03 Use Case Diagram:** [docs/diagrams/exports/use-case.png](docs/diagrams/exports/use-case.png) ([source](docs/diagrams/source/use-case.puml))
-- 🏛️ **Lab 03 Domain Class Diagram:** [docs/diagrams/exports/domain-classes.png](docs/diagrams/exports/domain-classes.png) ([source](docs/diagrams/source/domain-classes.puml))
-- 📝 **Lab 03 Fully-Dressed Use Case:** [docs/use-cases.md](docs/use-cases.md)
-- 🔗 **Lab 03 Traceability Matrix:** [docs/traceability.md](docs/traceability.md)
-- 🗺️ **Roadmap & Team Ownership:** [docs/team/TEAM-PLAN.md](docs/team/TEAM-PLAN.md)
+Sprint 0, 1, 2 & 3 — Repository bootstrap (Lab 01), Requirements Engineering (Lab 02), UML Modelling I (Lab 03), and Modelling II & Architecture (Lab 04) complete.
+
+### Lab Deliverables Index
+* **Lab 01 (Version Control & Team Collaboration):**
+  - 📄 Report & Evidence: [docs/lab01/Lab01_Report.md](docs/lab01/Lab01_Report.md)
+* **Lab 02 (Requirements Engineering):**
+  - 📋 Requirements Specification: [docs/requirements.md](docs/requirements.md) (27 User Stories, INVEST breakdown, Gherkin criteria)
+* **Lab 03 (UML Modelling I):**
+  - 📐 Use Case Diagram: [docs/diagrams/exports/use-case.png](docs/diagrams/exports/use-case.png) ([source](docs/diagrams/source/use-case.puml))
+  - 🏛️ Domain Class Diagram: [docs/diagrams/exports/domain-classes.png](docs/diagrams/exports/domain-classes.png) ([source](docs/diagrams/source/domain-classes.puml))
+  - 📝 Fully-Dressed Use Case: [docs/use-cases.md](docs/use-cases.md)
+  - 🔗 Requirements Traceability Matrix: [docs/traceability.md](docs/traceability.md)
+* **Lab 04 (Modelling II & Software Architecture):**
+  - ⏱️ Sequence Diagram 1 (POS Sale): [docs/diagrams/exports/sequence-sale.png](docs/diagrams/exports/sequence-sale.png) ([source](docs/diagrams/source/sequence-sale.puml))
+  - ⏱️ Sequence Diagram 2 (Auth & RBAC): [docs/diagrams/exports/sequence-login.png](docs/diagrams/exports/sequence-login.png) ([source](docs/diagrams/source/sequence-login.puml))
+  - 🔄 State Machine Diagram (Sale Lifecycle): [docs/diagrams/exports/state-sale.png](docs/diagrams/exports/state-sale.png) ([source](docs/diagrams/source/state-sale.puml))
+  - 🏗️ Component Architecture Diagram: [docs/diagrams/exports/component-architecture.png](docs/diagrams/exports/component-architecture.png) ([source](docs/diagrams/source/component-architecture.puml))
+  - 📜 ADR-001 (Layered Architecture): [docs/adr/ADR-001-layered-architecture.md](docs/adr/ADR-001-layered-architecture.md)
+  - 📜 ADR-002 (Technology Stack): [docs/adr/ADR-002-technology-stack.md](docs/adr/ADR-002-technology-stack.md)
+  - 💻 4-Tier Code Skeleton: [src/](src/) (
+outers/, services/, 
+epositories/, models/, schemas/, core/, main.py)
+* **Team Governance:**
+  - 🗺️ Roadmap & Team Ownership: [docs/team/TEAM-PLAN.md](docs/team/TEAM-PLAN.md)
 
