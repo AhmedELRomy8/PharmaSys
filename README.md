@@ -12,8 +12,8 @@ PharmaSys gives hospital pharmacies a barcode-driven point of sale, live invento
 
 This repository implements and satisfies all deliverables and grading criteria for **Lab 01 (Version Control & Team Collaboration)** under the supervision of **Prof. Dr. Amr Abohany**.
 
-* 📄 **Official Lab 01 Report:** [`Lab01_Report.md`](Lab01_Report.md)
-* 📁 **Screenshots Directory:** [`lab01_screenshots/`](lab01_screenshots/)
+* 📄 **Official Lab 01 Report:** [`docs/lab01/Lab01_Report.md`](docs/lab01/Lab01_Report.md)
+* 📁 **Screenshots Directory:** [`docs/lab01/lab01_screenshots/`](docs/lab01/lab01_screenshots/)
 
 ### Lab 01 Deliverables & Evidence Summary
 
@@ -30,12 +30,13 @@ This repository implements and satisfies all deliverables and grading criteria f
 
 ### Branch Protection Rule
 A branch protection rule was configured for the `main` branch:
+- **Branch name pattern:** `main`
 - **Require a pull request before merging:** Enabled
 - **Require approvals:** Enabled (1 review required)
 - **Dismiss stale pull request approvals when new commits are pushed:** Enabled
 - **Enforced on administrators:** Enabled (`enforce_admins: true`)
 
-![Branch Protection Rule](lab01_screenshots/branch-protection.png)
+![Branch Protection Rule](docs/lab01/lab01_screenshots/branch-protection.png)
 
 ---
 
@@ -45,7 +46,7 @@ Every team member contributed through pull requests rather than relying on one p
 * **Ali Mahmoud Ali** ([@AliMahmoud25845](https://github.com/AliMahmoud25845)): PRs [#17](https://github.com/AhmedELRomy8/PharmaSys/pull/17), [#19](https://github.com/AhmedELRomy8/PharmaSys/pull/19), [#21](https://github.com/AhmedELRomy8/PharmaSys/pull/21), [#22](https://github.com/AhmedELRomy8/PharmaSys/pull/22)
 * **Abdelrahman Mahmoud Ali** ([@AbdelrahmanMahmoud312005](https://github.com/AbdelrahmanMahmoud312005)): PR [#18](https://github.com/AhmedELRomy8/PharmaSys/pull/18)
 
-![All Pull Requests](lab01_screenshots/all-pull-requests.png)
+![All Pull Requests](docs/lab01/lab01_screenshots/all-pull-requests.png)
 
 ---
 
@@ -54,11 +55,11 @@ During Lab 01, the team created and merged pull requests for changes to `TEAM.md
 
 1. **GitHub Detected the Conflict in PR #21:**
    
-   ![Merge Conflict Detected](lab01_screenshots/merge-conflict-detected.png)
+   ![Merge Conflict Detected](docs/lab01/lab01_screenshots/merge-conflict-detected.png)
 
 2. **Conflict Resolved, Approved by Reviewer, and Merged:**
    
-   ![Pull Request Successfully Merged](lab01_screenshots/pull-request-merged.png)
+   ![Pull Request Successfully Merged](docs/lab01/lab01_screenshots/pull-request-merged.png)
 
 ---
 
@@ -103,19 +104,19 @@ Every significant decision is recorded as an ADR in `docs/adr/`.
 
 ```
 PharmaSys/
-├── lab01_screenshots/  # Lab 01 evidence screenshots
 ├── docs/
-│   ├── lab01/          # Lab 01 report archive
-│   ├── team/           # TEAM-PLAN.md + a personal playbook per member
-│   ├── diagrams/       # PlantUML sources (Labs 3–4)
-│   ├── adr/            # architecture decision records
+│   ├── lab01/                 # Lab 01 report and screenshots
+│   │   ├── Lab01_Report.md
+│   │   └── lab01_screenshots/
+│   ├── team/                  # TEAM-PLAN.md + a personal playbook per member
+│   ├── diagrams/              # PlantUML sources (Labs 3–4)
+│   ├── adr/                   # architecture decision records
 │   └── requirements.md
-├── backend/            # FastAPI application (added in the Lab 4 sprint)
-├── frontend/           # React application (added in the Lab 4 sprint)
-├── tests/              # unit + integration tests (Labs 7–8)
-├── Lab01_Report.md     # Official Lab 01 Report
-├── TEAM.md             # Team profiles and roles
-└── .github/workflows   # CI pipeline (Lab 9)
+├── backend/                   # FastAPI application (added in the Lab 4 sprint)
+├── frontend/                  # React application (added in the Lab 4 sprint)
+├── tests/                     # unit + integration tests (Labs 7–8)
+├── TEAM.md                    # Team profiles and roles
+└── .github/workflows          # CI pipeline (Lab 9)
 ```
 
 ## Workflow
