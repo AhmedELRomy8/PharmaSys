@@ -116,14 +116,6 @@ PharmaSys/
 │   ├── requirements.md        # 27 user stories with Gherkin acceptance criteria
 │   ├── use-cases.md           # Fully-dressed use case specifications
 │   └── traceability.md        # Bidirectional requirements-to-design matrix
-├── src/                       # 4-tier layered architecture backend skeleton
-│   ├── routers/               # Presentation layer (FastAPI route handlers)
-│   ├── services/              # Business logic & domain transaction orchestration
-│   ├── repositories/          # Data access interfaces & SQLAlchemy implementations
-│   ├── models/                # Domain entities & database tables
-│   ├── schemas/               # Pydantic DTOs & request/response validation
-│   ├── core/                  # Configuration, database engine & custom exceptions
-│   └── main.py                # Application entrypoint & dependency lifespan
 ├── tests/                     # unit + integration tests (Labs 7–8)
 ├── TEAM.md                    # Team profiles and roles
 └── .github/workflows          # CI pipeline (Lab 9)
@@ -159,9 +151,6 @@ Sprint 0, 1, 2 & 3 — Repository bootstrap (Lab 01), Requirements Engineering (
   - 🏗️ Component Architecture Diagram: [docs/diagrams/exports/component-architecture.png](docs/diagrams/exports/component-architecture.png) ([source](docs/diagrams/source/component-architecture.puml))
   - 📜 ADR-001 (Layered Architecture): [docs/adr/ADR-001-layered-architecture.md](docs/adr/ADR-001-layered-architecture.md)
   - 📜 ADR-002 (Technology Stack): [docs/adr/ADR-002-technology-stack.md](docs/adr/ADR-002-technology-stack.md)
-  - 💻 4-Tier Code Skeleton: [src/](src/) (
-outers/, services/, 
-epositories/, models/, schemas/, core/, main.py)
 * **Team Governance:**
   - 🗺️ Roadmap & Team Ownership: [docs/team/TEAM-PLAN.md](docs/team/TEAM-PLAN.md)
 
