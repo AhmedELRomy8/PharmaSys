@@ -1,0 +1,107 @@
+@startuml
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam roundcorner 8
+skinparam BoxPadding 10
+skinparam ParticipantPadding 10
+
+skinparam sequence {
+    ArrowColor #2C3E50
+    ActorBorderColor #2C3E50
+    LifeLineBorderColor #7F8C8D
+    LifeLineBackgroundColor #ECF0F1
+    ParticipantBorderColor #34495E
+    ParticipantBackgroundColor #EBF5FB
+    ParticipantFontName Arial
+    ParticipantFontSize 12
+}
+
+autonumber "<b>[00]</b>"
+
+title Sequence Diagram: Process Sale at POS Counter (UC-03 / US-07, US-08, US-10)
+
+actor "Staff / Cashier\n(Counter Pharmacist)" as Cashier #E8F8F5
+boundary "POS Client UI\n(React Web / Desktop)" as POSView #EBF5FB
+control "SalesRouter\n(FastAPI API Layer)" as SalesRouter #FCF3CF
+control "SalesService\n(Business Logic)" as SalesService #FCF3CF
+entity "MedicineRepo\n(Data Access)" as MedRepo #D5F5E3
+entity "SaleRepo\n(Data Access)" as SaleRepo #D5F5E3
+boundary "ReceiptPrinter\n(Hardware Interface)" as Printer #FADBD8
+
+== 1. Barcode Scanning & Item Validation (US-07) ==
+
+Cashier -> POSView : scanBarcode("6223001234567", qty: 2)
+activate POSView
+
+POSView -> SalesRouter : POST /api/v1/sales/scan\n{barcode: "6223001234567", quantity: 2}
+activate SalesRouter
+
+SalesRouter -> SalesService : scanAndValidateItem(pharmacyId, barcode, qty)
+activate SalesService
+
+SalesService -> MedRepo : findByBarcode(pharmacyId, barcode)
+activate MedRepo
+MedRepo --> SalesService : medicineEntity
+deactivate MedRepo
+
+alt#LightPink #LightPink Medicine Expired OR Insufficient Stock [Failure Path]
+    SalesService --> SalesRouter : raise StockValidationError("Expired or Insufficient Stock")
+    SalesRouter --> POSView : 409 Conflict\n{"error": "EXPIRED_OR_OUT_OF_STOCK", "detail": "Batch expired on 2026-09-01"}
+    POSView --> Cashier : Show Critical Alert Banner\n(Item blocked from cart)
+else #LightCyan Medicine Valid & In Stock [Success Path]
+    SalesService --> SalesRouter : CartItemDTO(id, tradeName, unitPrice: 45.0, qty: 2, subtotal: 90.0)
+    SalesRouter --> POSView : 200 OK\n{"cartItem": {...}, "runningTotal": 90.0}
+    POSView --> Cashier : Display item in cart & update bill total
+end
+deactivate SalesService
+deactivate SalesRouter
+deactivate POSView
+
+== 2. Checkout & Atomic Payment Finalization (US-08, US-10) ==
+
+Cashier -> POSView : completeSale(paymentMethod: CASH, tenderedAmount: 100.0)
+activate POSView
+
+POSView -> SalesRouter : POST /api/v1/sales/checkout\n{cartId: "CRT-104", paymentMethod: "CASH", tendered: 100.0}
+activate SalesRouter
+
+SalesRouter -> SalesService : finalizeSale(pharmacyId, cashierId, cartId, paymentMethod, tendered)
+activate SalesService
+
+SalesService -> MedRepo : verifyStockAvailability(cartItems)
+activate MedRepo
+MedRepo --> SalesService : isAvailable: true
+deactivate MedRepo
+
+alt#LightPink #LightPink Payment Amount Insufficient [Failure Path]
+    SalesService --> SalesRouter : raise InvalidPaymentError("Tendered amount less than net total")
+    SalesRouter --> POSView : 422 Unprocessable Entity\n{"error": "INSUFFICIENT_PAYMENT"}
+    POSView --> Cashier : Prompt for remaining cash
+else #LightCyan Payment Settled Successfully [Success Path]
+    SalesService -> MedRepo : decrementStockAtomically(cartItems)
+    activate MedRepo
+    MedRepo --> SalesService : stockDecremented: true
+    deactivate MedRepo
+
+    SalesService -> SaleRepo : save(saleRecord: PAID, change: 10.0)
+    activate SaleRepo
+    SaleRepo --> SalesService : savedSale(invoiceNo: "INV-2026-0042")
+    deactivate SaleRepo
+
+    SalesService -> Printer : printReceipt(saleRecord)
+    activate Printer
+    Printer --> SalesService : printSuccess: true
+    deactivate Printer
+
+    SalesService --> SalesRouter : SaleReceiptDTO(invoiceNo, total: 90.0, change: 10.0, status: PAID)
+    SalesRouter --> POSView : 201 Created\n{"invoiceNumber": "INV-2026-0042", "change": 10.0}
+    POSView --> Cashier : Print 80mm thermal receipt & reset cart
+end
+
+deactivate SalesService
+deactivate SalesRouter
+deactivate POSView
+
+@enduml
