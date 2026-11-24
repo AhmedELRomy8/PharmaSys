@@ -77,6 +77,10 @@ Hospital pharmacies lose time and money to manual sales logs, expired stock sold
 - Devices (barcode scanner, thermal printer) detected automatically
 - Ships as a standard Windows desktop app — `PharmaSys-Setup.exe`, desktop shortcut, zero prerequisites
 
+## UI/UX Design
+
+* 🎨 **Figma Prototype:** [PharmaSys UI/UX Design on Figma](https://www.figma.com/design/uPhS36R2iNh8oTuTsQ05HG/Untitled?node-id=0-1&t=Q2DnbSz4QHAd6omc-1)
+
 ## Team
 
 | Member | GitHub | Lab roles | Responsibility |
@@ -151,6 +155,8 @@ Sprint 0, 1, 2 & 3 — Repository bootstrap (Lab 01), Requirements Engineering (
   - 🏗️ Component Architecture Diagram: [docs/diagrams/exports/component-architecture.png](docs/diagrams/exports/component-architecture.png) ([source](docs/diagrams/source/component-architecture.puml))
   - 📜 ADR-001 (Layered Architecture): [docs/adr/ADR-001-layered-architecture.md](docs/adr/ADR-001-layered-architecture.md)
   - 📜 ADR-002 (Technology Stack): [docs/adr/ADR-002-technology-stack.md](docs/adr/ADR-002-technology-stack.md)
+* **UI/UX Design:**
+  - 🎨 Figma Prototype: [PharmaSys UI/UX Design on Figma](https://www.figma.com/design/uPhS36R2iNh8oTuTsQ05HG/Untitled?node-id=0-1&t=Q2DnbSz4QHAd6omc-1)
 * **Team Governance:**
   - 🗺️ Roadmap & Team Ownership: [docs/team/TEAM-PLAN.md](docs/team/TEAM-PLAN.md)
 
